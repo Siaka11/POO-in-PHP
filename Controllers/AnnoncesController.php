@@ -16,8 +16,13 @@ class AnnoncesController extends Controller
         $this->render('annonces/index.php', compact('annonces'));
     }
 
-    public function show()
+    public function lire($id)
     {
-        echo 'Bonjour bro';
+        $id = intval(end($id));
+        var_dump($id);
+
+        $annonces = new AnnoncesModel;
+        $annonces = $annonces->find($id);
+        $this->render('annonces/lire.php', compact('annonces'));
     }
 }

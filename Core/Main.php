@@ -5,7 +5,6 @@
 
 
 
-
 namespace App\Core;
 
 use App\Controllers\MainController;
@@ -15,6 +14,7 @@ class Main
 {
     public function start()
     {
+        session_start();
         // On rétire le trailing slash
 
         $uri = $_SERVER['REQUEST_URI'];
@@ -37,7 +37,7 @@ class Main
         //var_dump($params[0]);
 
         if ($params[1] != '') {
-            var_dump($params[1]);
+            // var_dump($params[1]);
             // On récupère le nom du controller
             $controller = '\\App\\Controllers\\' . ucfirst($params[1]) . 'Controller';
 
@@ -47,7 +47,7 @@ class Main
 
             if (isset($controller)) {
                 $controller = new $controller();
-                var_dump($controller);
+                // var_dump($controller);
 
 
                 /////////////////
@@ -56,9 +56,9 @@ class Main
                 } else {
                     $action = $params[1];
                 }
-                var_dump($params[1]);
-                var_dump($_GET['p']);
-                var_dump($params);
+                // var_dump($params[1]);
+                // var_dump($_GET['p']);
+                // var_dump($action);
 
 
                 if (method_exists($controller, $action)) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use PDO;
 use App\Core\Db;
 
 class Model extends Db
@@ -12,6 +13,11 @@ class Model extends Db
     //Instance de db
 
     private $db;
+
+    public function findOneByEmail(string $email)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE email = ?, [$email]")->fetch();
+    }
 
     public function findBy($criteres)
     {
@@ -30,18 +36,18 @@ class Model extends Db
         return $query->fetchAll();
     }
 
-    public function create(Model $model)
+    public function create()
     {
-        var_dump($model);
+
 
         $champs = [];
         $inter = [];
         $valeurs = [];
 
 
-        foreach ($model as $champ => $valeur) {
+        foreach ($this as $champ => $valeur) {
 
-            if ($valeur != null && $champ != "db" && $champ != "table") {
+            if ($valeur !== null && $champ != "db" && $champ != "table") {
 
                 $champs[] = $champ;
                 $inter[] = "?";
@@ -56,14 +62,14 @@ class Model extends Db
         return $this->requete('INSERT INTO ' . $this->table . '(' . $liste_champs . ') VALUES(' . $liste_inter . ')', $valeurs);
     }
 
-    public function update(int $id, Model $model)
+    public function update()
     {
 
         $champs = [];
         $valeurs = [];
 
 
-        foreach ($model as $champ => $valeur) {
+        foreach ($this as $champ => $valeur) {
 
             if ($valeur !== null && $champ != "db" && $champ != "table") {
 
@@ -72,7 +78,7 @@ class Model extends Db
             }
         }
 
-        $valeurs[] = $id;
+        $valeurs[] = $this->id;
         $liste_champs = implode(',', $champs);
 
         return $this->requete('UPDATE ' . $this->table . ' SET ' . $liste_champs . ' WHERE id = ?', $valeurs);
@@ -88,7 +94,7 @@ class Model extends Db
 
     public function find(int $id)
     {
-        return $this->requete('SELECT * FROM ' . $this->table . ' WHERE id =    ' . $id)->fetch();
+        return $this->requete("SELECT * FROM  $this->table WHERE id = $id ")->fetch();
     }
 
     public function delete(int $id)
@@ -114,7 +120,7 @@ class Model extends Db
         }
     }
 
-    public function hydrate(?array $donnees)
+    public function hydrate($donnees)
     {
 
 

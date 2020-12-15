@@ -18,35 +18,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="/">Accueil</a>
+                        <a class="nav-link " aria-current="page" href="/annonces">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/annonces">Liste des annonces</a>
+                        <a class="nav-link" href="#">Liste des annonces</a>
                     </li>
 
                 </ul>
-
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <?php if (isset($_SESSION['user']) && !empty($_SESSION['user']['id'])) : ?>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users/profil">Profil</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Déconnexion</a>
-                        </li>
-                    <?php else : ?>
-                        <li class="nav-item">
-                            <a class="nav-link " aria-current="page" href="/users/login">Connexion</a>
-                        </li>
-
-                    <?php endif; ?>
-
-
-
-                </ul>
-
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -56,7 +38,20 @@
 
     </div>
 
+    <div class="text-center">
 
+        <a href="/annonces" class="btn btn-primary"> Voir la liste des annonces</a>
+    </div>
+    <form action="" method="POST">
+
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" class="form-control">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" />
+
+        <button class="btn btn-success">me conecter </button>
+
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>

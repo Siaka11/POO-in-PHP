@@ -2,7 +2,7 @@
 <?php foreach ($annonces as $annonce) : ?>
 
     <article>
-        <h2><?= $annonce->titre ?></h2>
-
+        <h2><a href="/annonces/lire/<?= $annonce->id ?>"><?= $annonce->titre ?></a></h2>
+        <h2><?= $annonce->description ?></h2>
     </article>
 <?php endforeach; ?>
