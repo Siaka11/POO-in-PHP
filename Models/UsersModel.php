@@ -14,6 +14,29 @@ class UsersModel extends Model
     {
         $this->table = 'users';
     }
+
+
+    /**
+     * find one user by email
+     *
+     * @param string $email
+     * @return self
+     */
+    public function findOneByEmail(string $email)
+    {
+
+        return $this->requete('SELECT * FROM ' . $this->table . ' WHERE email = ?', [$email])->fetch();
+    }
+
+
+    public function setSession()
+    {
+        $_SESSION['user'] = [
+            'id' => $this->id,
+            'email' => $this->email
+        ];
+    }
+
     /**
      * Get the value of password
      */

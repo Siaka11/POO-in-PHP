@@ -14,10 +14,7 @@ class Model extends Db
 
     private $db;
 
-    public function findOneByEmail(string $email)
-    {
-        return $this->requete("SELECT * FROM $this->table WHERE email = ?, [$email]")->fetch();
-    }
+
 
     public function findBy($criteres)
     {
@@ -36,7 +33,7 @@ class Model extends Db
         return $query->fetchAll();
     }
 
-    public function create()
+    public function createOneUser()
     {
 
 
@@ -46,6 +43,8 @@ class Model extends Db
 
 
         foreach ($this as $champ => $valeur) {
+
+
 
             if ($valeur !== null && $champ != "db" && $champ != "table") {
 

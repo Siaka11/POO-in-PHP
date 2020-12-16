@@ -34,7 +34,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Déconnexion</a>
+                            <a class="nav-link" href="/users/logout">Déconnexion</a>
                         </li>
                     <?php else : ?>
                         <li class="nav-item">

@@ -16,13 +16,15 @@ class Form
 
     public static function validate(?array $form, ?array $champs)
     {
+
         foreach ($champs as $champ) {
+            var_dump($champ);
             if (!isset($form[$champ]) || empty($form[$champ])) {
 
                 return false;
+                echo 'Veuillez';
             }
         }
-
         return true;
     }
 
