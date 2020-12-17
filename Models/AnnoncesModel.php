@@ -12,6 +12,7 @@ class AnnoncesModel extends Model
     protected $description;
     protected $create_at;
     protected $actif;
+    protected $user_id;
 
 
 
@@ -70,6 +71,26 @@ class AnnoncesModel extends Model
     public function setActif($actif): self
     {
         $this->actif = $actif;
+        return $this;
+    }
+
+    /**
+     * Get the value of user_id
+     */
+    public function getUser_id()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of user_id
+     *
+     * @return  self
+     */
+    public function setUser_id($user_id)
+    {
+        $this->user_id = $user_id;
+
         return $this;
     }
 }

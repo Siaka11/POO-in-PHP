@@ -78,11 +78,11 @@ class Form
         return $this;
     }
 
-    public function textarea(string $nom, string $valeur, ?array $attributs = []): self
+    public function ajoutTextarea(string $nom, string $valeur, ?array $attributs = []): self
     {
         $this->formCode .= "<textarea name = '$nom' ";
         $this->formCode .= $attributs ? $this->ajoutAttribut($attributs) : '';
-        $this->formCode .= ">$valeur/textarea>";
+        $this->formCode .= ">$valeur</textarea>";
 
         return $this;
     }
