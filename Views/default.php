@@ -30,6 +30,9 @@
                     <?php if (isset($_SESSION['user']) && !empty($_SESSION['user']['id'])) : ?>
 
                         <li class="nav-item">
+                            <a class="nav-link"><?= $_SESSION['user']['email'] ?></a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/users/profil">Profil</a>
                         </li>
 
@@ -51,6 +54,20 @@
         </div>
     </nav>
 
+    <?php if (!empty($_SESSION['erreur'])) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['erreur'];
+            unset($_SESSION['erreur']); ?>
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($_SESSION['message'])) : ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['message'];
+            unset($_SESSION['message']); ?>
+        </div>
+    <?php endif; ?>
     <div class="contenu">
         <?= $contenu ?>
 

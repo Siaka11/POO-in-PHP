@@ -20,41 +20,47 @@ class UsersController extends Controller
     {
         if (Form::validate($_POST, ['email', 'password'])) {
 
-            $userModel = new UsersModel;
-            $userExist = $userModel->findOneByEmail(strip_tags($_POST['email']));
-            var_dump($userExist);
+            $email = strip_tags($_POST['email']);
 
-            if (!$userExist) {
+            $userModel = new UsersModel;
+
+            $emailExist = $userModel->findOneByEmail($email);
+            //var_dump($emailExist);
+
+            if (!$emailExist) {
                 $_SESSION['erreur'] = 'L\'adresse mail ou le mot de passe est incorrect';
                 header('Location: /users/login');
+                exit;
             }
-            $user = $userModel->hydrate($userExist);
 
-            //On vérifie si le mot de passe est correct
+            $user = $userModel->hydrate($emailExist);
+
             if (password_verify($_POST['password'], $user->getPassword())) {
-
                 $user->setSession();
-                header('Location: /annonces');
+                header('Location: /annonces ');
                 exit;
             } else {
-                $_SESSION['erreur'] = 'L\'adresse e-mail ou mot de passe est incrorrect';
+                $_SESSION['erreur'] = 'L\'adresse mail ou le mot de passe est incorrect';
                 header('Location: /users/login');
                 exit;
             }
         }
 
 
-        $form = new Form();
+
+        $form = new Form;
 
         $form->debutForm()
-            ->ajoutLabelFor('email', ' E-mail :')
-            ->ajoutInput('email', 'email', ['class' => 'form-control', 'id' => 'email', 'required', 'autofocus', 'novalidate'])
-            ->ajoutLabelFor('pass', 'Mot de passe :')
-            ->ajoutInput('password', 'password', ['class' => 'form-control', 'id' => 'pass'])
-            ->ajoutBouton('Me connecter', ['class' => 'btn btn-primary'])
+            ->ajoutLabelFor('email', 'E-mail :')
+            ->ajoutInput('email', 'email', ['class' => 'form-control'])
+            ->ajoutLabelFor('pass', 'Password :')
+            ->ajoutInput('password', 'password', ['class' => 'form-control'])
+            ->ajoutBouton('Se connecter', ['class' => 'btn btn-primary'])
             ->finForm();
 
-        $this->render('users/login.php', ['loginForm' => $form->create()]);
+        $formLogin = $form->create();
+
+        $this->render('users/login.php', compact('formLogin'));
     }
     /**
      * Inscription des utlisateurs
@@ -64,41 +70,37 @@ class UsersController extends Controller
     public function register()
     {
         if (Form::validate($_POST, ['email', 'password'])) {
-            // On nettoie l'adresse mail
-            $email = strip_tags($_POST['email']);
 
-            $password = password_hash($_POST['password'], PASSWORD_ARGON2I);
-            //on stocke l'utilisateur de la base
+            if (isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['password']) && !empty($_POST['email'])) {
+                $email = strip_tags($_POST['email']);
+                $pass = password_hash($_POST['password'], PASSWORD_ARGON2I);
 
 
-            $user = new UsersModel();
+                $createUser = new UsersModel;
 
-            $user->setEmail($email)
-                ->setPassword($password);
-            $user->createOneUser();
+                $createUser->setEmail($email)
+                    ->setPassword($pass);
+                $createUser->createOne();
+                $_SESSION['message'] = "Votre compte sera crée , merci de le confirmer svp";
+            }
         }
 
-
-
-
-        $form = new Form();
+        $form = new Form;
 
         $form->debutForm()
             ->ajoutLabelFor('email', 'E-mail :')
-            ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'placeholder' => 'Votre mail'])
-            ->ajoutLabelFor('password', 'Password :')
-            ->ajoutInput('password', 'password', ['id' => 'password', 'class' => 'form-control'])
-
-            ->ajoutBouton('S\'inscrire ', ['class' => 'btn btn-success'])
+            ->ajoutInput('email', 'email', ['class' => 'form-control'])
+            ->ajoutLabelFor('pass', 'Password :')
+            ->ajoutInput('password', 'password', ['class' => 'form-control'])
+            ->ajoutBouton('S\'inscrire', ['class' => 'btn btn-primary'])
             ->finForm();
-
-
-        $this->render('users/register.php', ['registerForm' => $form->create()]);
+        $formRegister = $form->create();
+        $this->render('users/register.php', compact('formRegister'));
     }
 
     public function logout()
     {
         unset($_SESSION['user']);
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header('Location:' . $_SERVER['HTTP_REFERER']);
     }
 }

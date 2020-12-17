@@ -14,15 +14,14 @@ class Form
         return $this->formCode;
     }
 
-    public static function validate(?array $form, ?array $champs)
+    public static function validate(?array $method, ?array $champs)
     {
 
         foreach ($champs as $champ) {
             var_dump($champ);
-            if (!isset($form[$champ]) || empty($form[$champ])) {
+            if (!isset($method[$champ]) || empty($method[$champ])) {
 
                 return false;
-                echo 'Veuillez';
             }
         }
         return true;

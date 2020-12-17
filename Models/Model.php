@@ -33,7 +33,7 @@ class Model extends Db
         return $query->fetchAll();
     }
 
-    public function createOneUser()
+    public function createOne()
     {
 
 
