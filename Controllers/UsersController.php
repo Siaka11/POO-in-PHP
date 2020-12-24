@@ -23,9 +23,10 @@ class UsersController extends Controller
             $email = strip_tags($_POST['email']);
 
             $userModel = new UsersModel;
-
+            var_dump($userModel);
             $emailExist = $userModel->findOneByEmail($email);
             //var_dump($emailExist);
+
 
             if (!$emailExist) {
                 $_SESSION['erreur'] = 'L\'adresse mail ou le mot de passe est incorrect';
@@ -34,9 +35,12 @@ class UsersController extends Controller
             }
 
             $user = $userModel->hydrate($emailExist);
+            //var_dump($user);
+
 
             if (password_verify($_POST['password'], $user->getPassword())) {
                 $user->setSession();
+                $_SESSION['bienvenu'] = 'Bonjour ' . $_SESSION['user']['email'] . ' Vous nous avez manquer';
                 header('Location: /annonces ');
                 exit;
             } else {
@@ -69,6 +73,7 @@ class UsersController extends Controller
      */
     public function register()
     {
+
         if (Form::validate($_POST, ['email', 'password'])) {
 
             if (isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['password']) && !empty($_POST['email'])) {
@@ -78,11 +83,26 @@ class UsersController extends Controller
 
                 $createUser = new UsersModel;
 
+
+
+                $emailExist = $createUser->findOneByEmail($email);
+                var_dump($emailExist);
+
+                if (!$emailExist) {
+                } else {
+                    $_SESSION['erreurConnexion'] = 'L\'adresse mail a déjà été utilisée.';
+
+                    header('Location: /users/register');
+                    exit;
+                }
+
                 $createUser->setEmail($email)
                     ->setPassword($pass);
                 $createUser->createOne();
                 $_SESSION['message'] = "Votre compte sera crée , merci de le confirmer svp";
             }
+        } else {
+            $_SESSION['erreur'] = !empty($_POST) ? "Votre formulaire est incomplet" : "";
         }
 
         $form = new Form;

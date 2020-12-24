@@ -18,7 +18,7 @@ class Form
     {
 
         foreach ($champs as $champ) {
-            var_dump($champ);
+            //var_dump($champ);
             if (!isset($method[$champ]) || empty($method[$champ])) {
 
                 return false;
@@ -39,7 +39,7 @@ class Form
             if (in_array($attribut, $courts) && $valeur == true) {
                 $str .= " $attribut";
             } else {
-                $str .= " $attribut ='$valeur'";
+                $str .= " $attribut =\"$valeur\"";
             }
         }
 
@@ -95,7 +95,7 @@ class Form
         $this->formCode .= $attributs ? $this->ajoutAttribut($attributs) . '>' : '>';
 
         foreach ($options as $valeur => $texte) {
-            $this->formCode .= "<option value = '$valeur'>$texte</option>";
+            $this->formCode .= "<option value = \"$valeur\">$texte</option>";
         }
 
         $this->formCode .= '</select>';

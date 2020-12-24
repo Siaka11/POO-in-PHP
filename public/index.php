@@ -9,7 +9,7 @@ define('ROOT', dirname(__DIR__));
 
 require_once ROOT . '/Autoloader.php';
 Autoloader::register();
-
+require_once ROOT . '/vendor/autoload.php';
 
 //Main est notre routeur
 $app = new Main();

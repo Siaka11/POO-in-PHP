@@ -18,6 +18,7 @@ class Autoloader
 
         //App\Client\Compte.php
         $class = str_replace(__NAMESPACE__ . '\\', '', $class);
+        //var_dump($class);
         //Client\Compte
         $class = str_replace('\\', '/', $class);
 

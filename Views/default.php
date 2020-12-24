@@ -28,7 +28,11 @@
 
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <?php if (isset($_SESSION['user']) && !empty($_SESSION['user']['id'])) : ?>
-
+                        <?php if (in_array('ROLE_ADMIN', $_SESSION['user']['roles'])) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin">Admin</a>
+                            </li>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link"><?= $_SESSION['user']['email'] ?></a>
                         </li>
@@ -53,7 +57,14 @@
             </div>
         </div>
     </nav>
+    <?php if (!empty($_SESSION['message'])) : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['message'];
+            unset($_SESSION['message']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
+        </div>
+    <?php endif; ?>
     <?php if (!empty($_SESSION['erreur'])) : ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <?php echo $_SESSION['erreur'];
@@ -62,13 +73,32 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
-    <?php if (!empty($_SESSION['message'])) : ?>
-        <div class="alert alert-success" role="alert">
-            <?php echo $_SESSION['message'];
-            unset($_SESSION['message']); ?>
+    <?php if (!empty($_SESSION['erreurConnexion'])) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['erreurConnexion'];
+            unset($_SESSION['erreurConnexion']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
         </div>
     <?php endif; ?>
-    <div class="contenu">
+    <?php if (!empty($_SESSION['bienvenu'])) : ?>
+        <div class="alert alert-success" role="alert">
+
+
+            <h4 class="alert-heading">Votre site qui se rapproche toujours de vous.</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            <?php echo $_SESSION['bienvenu'];
+            unset($_SESSION['bienvenu']); ?>
+            <hr>
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        </div>
+    <?php endif; ?>
+
+    <div class="contenu" style="padding: 0 auto;">
+
+
+
         <?= $contenu ?>
 
     </div>
