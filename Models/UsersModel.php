@@ -10,6 +10,8 @@ class UsersModel extends Model
     protected $email;
     protected $password;
     protected $roles;
+    protected $confirmkey;
+    protected $confirme;
 
     public function __construct()
     {
@@ -117,6 +119,46 @@ class UsersModel extends Model
     public function setRoles($roles)
     {
         $this->roles = json_decode($roles);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of confirme
+     */
+    public function getConfirme()
+    {
+        return $this->confirme;
+    }
+
+    /**
+     * Set the value of confirme
+     *
+     * @return  self
+     */
+    public function setConfirme($confirme)
+    {
+        $this->confirme = $confirme;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of confirmkey
+     */
+    public function getConfirmkey()
+    {
+        return $this->confirmkey;
+    }
+
+    /**
+     * Set the value of confirmkey
+     *
+     * @return  self
+     */
+    public function setConfirmkey($confirmkey)
+    {
+        $this->confirmkey = $confirmkey;
 
         return $this;
     }

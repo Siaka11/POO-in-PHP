@@ -33,36 +33,38 @@ class Main
         //p = controleur/methode
 
         $params = explode('/', $_GET['p']);
-        //var_dump($params);
+        var_dump($params);
         //var_dump($params[0]);
 
-        if ($params[1] != '') {
+        if ($params[0] != '') {
             // var_dump($params[1]);
             // On récupère le nom du controller
-            $controller = '\\App\\Controllers\\' . ucfirst($params[1]) . 'Controller';
+            $controller = '\\App\\Controllers\\' . ucfirst($params[0]) . 'Controller';
 
             //on instancie le controleur
 
 
 
             if (isset($controller)) {
+
+
                 $controller = new $controller();
                 // var_dump($controller);
 
 
                 /////////////////
-                if (isset($params[2])) {
-                    $action = $params[2];
-                } else {
+                if (isset($params[1])) {
                     $action = $params[1];
+                } else {
+                    $action = null;
                 }
                 // var_dump($params[1]);
                 // var_dump($_GET['p']);
-                // var_dump($action);
+                //var_dump($action);
 
 
                 if (method_exists($controller, $action)) {
-                    (isset($params[1])) ? $controller->$action($params) : $controller->$action();
+                    (isset($params[0])) ? $controller->$action($params) : $controller->$action();
                 } else {
                     $main = new $controller;
                     $main->index();

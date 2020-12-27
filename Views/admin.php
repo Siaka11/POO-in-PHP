@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
 
@@ -95,7 +96,7 @@
         <?= $contenu ?>
 
     </div>
-    <script src="/js/script.js">
+    <script src="public/js/script.js">
         // var exampleModal = document.getElementById('exampleModal')
         // exampleModal.addEventListener('show.bs.modal', function(event) {
         //     // Button that triggered the modal

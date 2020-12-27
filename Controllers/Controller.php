@@ -13,9 +13,9 @@ abstract class Controller
 
         ob_start();
 
-        require_once ROOT . '/Views/' . $fichier;
+        require_once '../Views/' . $fichier;
         $contenu = ob_get_clean();
 
-        require_once ROOT . '/Views/' . $template;
+        require_once  '../Views/' . $template;
     }
 }

@@ -96,9 +96,43 @@ class UsersController extends Controller
                     exit;
                 }
 
+                $bytes = random_bytes(16);
+                var_dump(bin2hex($bytes));
+                $_POST['confirmkey'] = bin2hex($bytes);
+
+
                 $createUser->setEmail($email)
-                    ->setPassword($pass);
+                    ->setPassword($pass)
+                    ->setConfirmkey($_POST['confirmkey']);
+
+
                 $createUser->createOne();
+                ////// Envoie du mail de confirmation /////////://////
+
+                $header = "MIME-Version: 1.0\r\n";
+                $header .= 'From:"monsite.com"<support@monsite.com>' . "\n";
+                $header .= 'Content-Type:text/html; charset="uft-8"' . "\n";
+                $header .= 'Content-Transfer-Encoding: 8bit';
+
+                $message = '
+                <html>
+                    <body>
+                        <div align="center">
+                            <img src="http://www.primfx.com/mailing/banniere.png"/>
+                            <br />
+                            Merci de confirmer votre mail s\'il vous plaît
+                            <br />
+                            <img src="http://www.primfx.com/mailing/separation.png"/>
+                        </div>
+                    </body>
+                </html>
+                ';
+
+                mail($email, "Mail de confirmation !", $message, $header);
+
+
+                ////////////////////////////////////////////////////////
+
                 $_SESSION['message'] = "Votre compte sera crée , merci de le confirmer svp";
             }
         } else {
@@ -108,6 +142,7 @@ class UsersController extends Controller
         $form = new Form;
 
         $form->debutForm()
+            ->ajoutInput('hidden', 'confirmkey', ['class' => 'form-control'])
             ->ajoutLabelFor('email', 'E-mail :')
             ->ajoutInput('email', 'email', ['class' => 'form-control'])
             ->ajoutLabelFor('pass', 'Password :')

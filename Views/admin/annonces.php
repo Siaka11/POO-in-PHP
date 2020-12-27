@@ -92,6 +92,10 @@
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $annonce->id ?>">
                         Supprimer
                     </button>
+                    <button type="button" class="btn btn-info" id="ajout">
+                        Ajouter
+                    </button>
+                    <p id="ajouteur">0</p>
 
                     <!-- Modal
                     <div class="modal fade" id="staticBackdrop<?= $annonce->id ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
